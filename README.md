@@ -13,7 +13,7 @@
 * **Institutional Demand:** Мониторинг притоков в ETF и спроса со стороны крупных фондов.
 * **L2 Efficiency Tracker:** Анализ прибыльности сетей второго уровня (Arbitrum, Base, Optimism).
 * **The Graph (GRT) Utility:** Мониторинг реального использования протокола индексации данных.
-* **Anti-Crisis Dashboard:** Быстрый взгляд на ключевые метрики для принятия взвешенных решений в условиях высокой волатильности.
+* **Dashboard:** Быстрый взгляд на ключевые метрики для принятия взвешенных решений в условиях высокой волатильности.
 
 ### Технологический стек:
 * **Language:** Python 3.8+
@@ -35,7 +35,7 @@
 * **Institutional Demand:** Monitoring ETF inflows and demand from major institutional players.
 * **L2 Efficiency Tracker:** Profitability analysis for Layer 2 networks (Arbitrum, Base, Optimism).
 * **The Graph (GRT) Utility:** Real-time monitoring of indexing protocol usage and fees.
-* **Anti-Crisis Dashboard:** A high-level overview of critical metrics for informed decision-making during volatility.
+* **Dashboard:** A high-level overview of critical metrics for informed decision-making during volatility.
 
 ### Tech Stack:
 * **Language:** Python 3.8+
@@ -45,9 +45,9 @@
 ---
 
 ### 🏛️ Architect's Note / Заметка Архитектора
-Этот терминал построен на принципах **минимализма и функциональной избыточности**. В условиях 2026 года цена — это шум. Данные блокчейна и притоки капитала — это единственный фундамент.
+Этот терминал построен на принципах **минимализма и функциональной избыточности**. В условиях 2026 года цена — это шум (выебон - конечно не шум). Данные блокчейна и притоки капитала — это единственный фундамент.
 
-> "Don't trust the price, trust the flow." — JRiverbend
+> "Trust the flow - predict the price." — JRiverbend
 
 ### License
 MIT
