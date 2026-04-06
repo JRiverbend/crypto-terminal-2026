@@ -110,4 +110,4 @@ with right_col:
 # Футер
 st.sidebar.button("🔄 Refresh System", on_click=st.rerun)
 st.sidebar.write(f"**Node Status:** Online")
-st.sidebar.write(f"**Hardware:** Air 2017 (Big Sur)")
+
