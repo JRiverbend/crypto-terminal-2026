@@ -29,7 +29,6 @@ def get_crypto_prices():
         return fallback
 
 def get_blockchain_news():
-    """Парсинг свежих новостей из RSS-лент."""
     feeds = [
         "https://cointelegraph.com/rss",
         "https://decrypt.co/feed"
@@ -38,11 +37,25 @@ def get_blockchain_news():
     for url in feeds:
         try:
             feed = feedparser.parse(url)
-            all_entries.extend(feed.entries[:5]) # Берём по 5 свежих с каждого ресурса
+            all_entries.extend(feed.entries[:5])
         except:
             continue
-    # Сортируем по дате (если есть)
-    return all_entries[:8] # Итоговые 8 новостей
+    return all_entries[:8]
+
+def get_mempool_alerts():
+    """Получение реальных последних транзакций через Mempool.space API."""
+    try:
+        # Получаем последние транзакции в мемпуле
+        res = requests.get("https://mempool.space/api/mempool/recent", timeout=5).json()
+        alerts = []
+        for tx in res[:5]: # Берем 5 последних
+            btc_val = tx['value'] / 10**8
+            txid_short = f"{tx['txid'][:6]}...{tx['txid'][-6:]}"
+            # Формируем строку алерта
+            alerts.append(f"⚡ **{btc_val:.2f} BTC** | TX: `{txid_short}`")
+        return alerts
+    except:
+        return ["📡 Ожидание данных из мемпула..."]
 
 # --- ИНТЕРФЕЙС ---
 
@@ -70,15 +83,14 @@ left_col, right_col = st.columns([2, 1])
 with left_col:
     st.subheader("🐋 Market Intelligence & Whales")
     
-    # Вкладки для аналитики
-    tab1, tab2 = st.tabs(["On-Chain Alerts", "ETF Inflows"])
+    tab1, tab2 = st.tabs(["Live Mempool Alerts", "ETF Inflows"])
     
     with tab1:
-        st.code("""
-[06.04.2026 12:45] 🚨 WHALE ALERT: 2,100 BTC moved to Binance (Potential Sell Pressure)
-[06.04.2026 10:20] ✅ HODL Wave: Coins older than 3 years are NOT moving.
-[06.04.2026 09:15] 📈 GRT Indexing Fees increased by 12% in 24h.
-        """, language="bash")
+        st.write("### Recent Network Activity (Real-time)")
+        mempool_data = get_mempool_alerts()
+        for alert in mempool_data:
+            st.write(alert)
+        st.caption("Данные обновляются при каждом обновлении страницы")
         
     with tab2:
         chart_data = pd.DataFrame({"Day": ["1", "2", "3", "4", "5"], "Net Inflow ($M)": [140, -50, 310, 420, 290]})
@@ -97,7 +109,7 @@ with right_col:
     news = get_blockchain_news()
     
     if not news:
-        st.write("Новости временно недоступны. Проверь соединение.")
+        st.write("Новости временно недоступны.")
     else:
         for entry in news:
             st.markdown(f"""
@@ -107,7 +119,6 @@ with right_col:
             </div>
             """, unsafe_allow_html=True)
 
-# Футер
+# Футер (Сайдбар)
 st.sidebar.button("🔄 Refresh System", on_click=st.rerun)
 st.sidebar.write(f"**Node Status:** Online")
-
